@@ -1,4 +1,5 @@
-import cv2
+#importando bibliotecas
+import cv2 
 import numpy as np
 from keras.models import load_model
 
@@ -6,7 +7,7 @@ from keras.models import load_model
 video = cv2.VideoCapture(0, cv2.CAP_DSHOW) #capturar video da camera
 model = load_model('keras_model.h5',compile=False)
 data = np.ndarray(shape=(1,224,224,3),dtype=np.float32)
-classes =["atlantico", "fragata uniao", "boia"]
+classes =["NAM Atlântico", "Fragata União", "Diversos"]
 
 def preProcess(img):
     imgPre = cv2.GaussianBlur(img, (5,5),3)
@@ -43,8 +44,6 @@ while True:
             classe, conf = DetectarNavio(recorte)
             cv2.putText(img, str(classe), (x,y), cv2.FONT_HERSHEY_SIMPLEX,0.5,(255,255,255),2)
 
-    cv2.imshow('IMG',img) #mostra a imagem
+    cv2.imshow('IMG',img) #mostra a imagem tela de captura
     cv2.imshow('IMG PRE', imgPre)
     cv2.waitKey(1) #fecha a tela após o clique no 1
-        
-        
